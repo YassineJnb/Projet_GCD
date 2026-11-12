@@ -1,0 +1,113 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Registered candidate, professor, or administrator at USMBA",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["candidate", "professor", "ced_admin", "guest"] },
+        "email": { "type": "string" },
+        "avatar": { "type": "string" },
+        "title": { "type": "string" },
+        "establishment": { "type": "string" },
+        "laboratory": { "type": "string" }
+      },
+      "required": ["id", "name", "role", "email"]
+    },
+    "Thesis": {
+      "title": "Thesis Topic",
+      "description": "Doctoral research topic proposal offered by laboratories at USMBA",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "abstract": { "type": "string" },
+        "keywords": { "type": "array" },
+        "ced": { "type": "string" },
+        "establishment": { "type": "string" },
+        "laboratory": { "type": "string" },
+        "supervisorName": { "type": "string" },
+        "supervisorEmail": { "type": "string" },
+        "supervisorTitle": { "type": "string" },
+        "positionsCount": { "type": "number" },
+        "remainingSlots": { "type": "number" },
+        "fundingType": { "type": "string" },
+        "status": { "type": "string" },
+        "applicantsCount": { "type": "number" }
+      },
+      "required": ["id", "title", "ced", "establishment", "laboratory", "supervisorName"]
+    },
+    "Application": {
+      "title": "Candidate Application",
+      "description": "Doctoral admission application submitted by candidate with verified 5 mandatory documents",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "thesisId": { "type": "string" },
+        "thesisTitle": { "type": "string" },
+        "candidateName": { "type": "string" },
+        "candidateEmail": { "type": "string" },
+        "candidatePhone": { "type": "string" },
+        "cin": { "type": "string" },
+        "currentMasterOrDegree": { "type": "string" },
+        "masterGpa": { "type": "number" },
+        "mention": { "type": "string" },
+        "status": { "type": "string" },
+        "calculatedScore": { "type": "number" },
+        "receiptCode": { "type": "string" }
+      },
+      "required": ["id", "thesisId", "candidateName", "candidateEmail", "cin", "status", "receiptCode"]
+    },
+    "ReInscription": {
+      "title": "Doctoral Re-inscription",
+      "description": "Annual doctoral re-inscription report and progress monitoring",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentName": { "type": "string" },
+        "studentCin": { "type": "string" },
+        "currentYear": { "type": "number" },
+        "progressPercentage": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "studentName", "studentCin", "currentYear", "status"]
+    },
+    "UploadedFile": {
+      "title": "Uploaded Document File",
+      "description": "Chunked base64/binary payload for uploaded candidate PDFs and images",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "size": { "type": "string" },
+        "chunkCount": { "type": "number" }
+      },
+      "required": ["id"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of university candidate and professor profiles"
+    },
+    "/theses/{thesisId}": {
+      "schema": "Thesis",
+      "description": "Published doctoral thesis topics open for candidatures"
+    },
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Doctoral applications containing verification states for the 5 mandatory documents and approval history"
+    },
+    "/reInscriptions/{reInscriptionId}": {
+      "schema": "ReInscription",
+      "description": "Annual doctoral re-inscription progress submissions"
+    },
+    "/uploadedFiles/{fileId}": {
+      "schema": "UploadedFile",
+      "description": "Uploaded document manifests and chunked file payloads"
+    }
+  }
+}

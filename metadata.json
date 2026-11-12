@@ -1,0 +1,8 @@
+{
+  "name": "Remix USMBA Doctorat - GCD Next",
+  "description": "Portail unifié et simplifié d\u0027inscription doctorale et de gestion des thèses pour l\u0027Université Sidi Mohamed Ben Abdellah de Fès (USMBA).",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

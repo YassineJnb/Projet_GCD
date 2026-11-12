@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if isSignedIn() || request.auth == null;
+    }
+
+    // Theses collection
+    match /theses/{thesisId} {
+      allow read: if true;
+      allow write: if isSignedIn() || request.auth == null;
+    }
+
+    // Applications collection
+    match /applications/{applicationId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Re-inscriptions collection
+    match /reInscriptions/{reInscriptionId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Uploaded files (chunked PDF/image manifests & chunks)
+    match /uploadedFiles/{fileId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
